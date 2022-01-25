@@ -169,8 +169,14 @@ void MissionHandler::SendGoal() {
  *
  */
 move_base_msgs::MoveBaseGoal MissionHandler::CreateCurrentGoal() const {
+    ROS_INFO("creating current goal ");
+
+
+
   // Get current waypoint in map frame
   auto current_map_waypoint = current_waypoint().TransformToFrame("map");
+
+  ROS_INFO("pre transform x, y : %d, %d ", current_map_waypoint.point.x, current_map_waypoint.point.y);
 
   // Declare a move base goal
   move_base_msgs::MoveBaseGoal current_goal;
