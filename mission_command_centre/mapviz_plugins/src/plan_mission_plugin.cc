@@ -345,11 +345,17 @@ bool PlanMissionPlugin::handleMouseRelease(QMouseEvent* event) {
   if (selected_point_ >= 0 &&
       static_cast<size_t>(selected_point_) < gps_waypoints_.size()) {
     stu::Transform transform;
+    PrintWarning("Amr Debug messages1 : ");
+    std::cout<<point.x()<<" , "<<point.y()<<std::endl;
     if (tf_manager_->GetTransform(stu::_wgs84_frame, target_frame_,
                                   transform)) {
       QPointF transformed = map_canvas_->MapGlCoordToFixedFrame(point);
       tf::Vector3 position(transformed.x(), transformed.y(), 0.0);
       position = transform * position;
+      std::stringstream ss;
+      ss << point.x() << " (2) , "<<point.y();
+      PrintWarning(ss.str());
+
       gps_waypoints_[selected_point_].position.x = position.x();
       gps_waypoints_[selected_point_].position.y = position.y();
     }
@@ -359,6 +365,10 @@ bool PlanMissionPlugin::handleMouseRelease(QMouseEvent* event) {
   } else if (is_mouse_down_) {
     qreal distance = QLineF(mouse_down_pos_, point).length();
     qint64 msecsDiff = QDateTime::currentMSecsSinceEpoch() - mouse_down_time_;
+    
+    std::stringstream ss;
+    ss << point.x() << " (3), "<<point.y();
+    PrintWarning(ss.str());
 
     // Only fire the event if the mouse has moved less than the maximum distance
     // and was held for shorter than the maximum time..  This prevents click
@@ -399,6 +409,11 @@ bool PlanMissionPlugin::handleMouseMove(QMouseEvent* event) {
       QPointF transformed = map_canvas_->MapGlCoordToFixedFrame(point);
       tf::Vector3 position(transformed.x(), transformed.y(), 0.0);
       position = transform * position;
+      PrintWarning("Amr Debug messages3 : ");
+      std::cout<<point.x()<<" , "<<point.y()<<std::endl;
+      std::cout<<position.x()<<" , "<<position.y()<<std::endl;
+      ROS_INFO("TESTING %d, %d", position.x() , position.y());
+
       gps_waypoints_[selected_point_].position.y = position.y();
       gps_waypoints_[selected_point_].position.x = position.x();
     }
@@ -441,7 +456,7 @@ void PlanMissionPlugin::Draw(double x, double y, double scale) {
     }
     glEnd();
   } else {
-    PrintError("Waypoint transform cannot be retrieved");
+    PrintError("MCS : Waypoint transform cannot be retrieved");
   }
 }
 

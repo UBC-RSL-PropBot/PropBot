@@ -2,6 +2,9 @@
 
   <node pkg="mapviz" type="mapviz" name="mapviz"></node>
 
+
+  <node pkg="tf" type="static_transform_publisher" name="swri_transform" args="0 0 0 0 0 0 /map /origin 100"  />
+
   <node pkg="swri_transform_util" type="initialize_origin.py" name="initialize_origin" >
     <param name="local_xy_frame" value="/map"/>
     <param name="local_xy_origin" value="swri"/>
@@ -14,7 +17,6 @@
     </rosparam>
   </node>
 
-  <node pkg="tf" type="static_transform_publisher" name="swri_transform" args="0 0 0 0 0 0 /map /origin 100"  />
 
 
 

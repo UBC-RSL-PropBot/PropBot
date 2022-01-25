@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   roslaunch
   propbot_util
   propbot_common_msgs
+  robot_localization
 )
 
 catkin_package()
