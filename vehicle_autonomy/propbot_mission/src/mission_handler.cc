@@ -187,8 +187,11 @@ move_base_msgs::MoveBaseGoal MissionHandler::CreateCurrentGoal() const {
 
   Waypoint curr_waypoint = current_waypoint();
   // Set x and y of current_goal
-  current_goal.target_pose.pose.position.x = current_map_waypoint.point.x;
-  current_goal.target_pose.pose.position.y = current_map_waypoint.point.y;
+  // current_goal.target_pose.pose.position.x = current_map_waypoint.point.x;
+  // current_goal.target_pose.pose.position.y = current_map_waypoint.point.y;
+  current_goal.target_pose.pose.position.x = 5;
+  current_goal.target_pose.pose.position.y = -5;
+
 
   if (current_waypoint_number() < mission_.number_waypoints()) {
     // Get next waypoint in map frame
