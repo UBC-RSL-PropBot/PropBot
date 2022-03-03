@@ -386,6 +386,10 @@ bool PlanMissionPlugin::handleMouseRelease(QMouseEvent* event) {
         geometry_msgs::Pose pose;
         pose.position.x = position.x();
         pose.position.y = position.y();
+        std::stringstream ss;
+        ss << position.x() << " (4), "<<position.y();
+        PrintWarning(ss.str());
+
         gps_waypoints_.push_back(pose);
       }
     }
