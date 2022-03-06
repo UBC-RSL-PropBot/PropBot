@@ -6,7 +6,13 @@ controller_manager
 roscpp
 diff_drive_controller
 hardware_interface
+roslib
 roslaunch)
+
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+)
 
 catkin_package()
 

@@ -26,6 +26,9 @@
   <run_depend>controller_manager</run_depend>
   <run_depend>twist_mux</run_depend>
   <run_depend>realsense2_camera</run_depend>
+  <run_depend>controller_manager</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>hardware_interface</run_depend>
 
   <export>
   </export>
