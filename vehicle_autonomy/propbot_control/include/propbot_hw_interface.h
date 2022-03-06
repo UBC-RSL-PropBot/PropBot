@@ -74,6 +74,9 @@ public:
 	right_wheel_vel_msg.data = diff_ang_speed_right;
 	left_wheel_vel_pub_.publish(left_wheel_vel_msg);
 	right_wheel_vel_pub_.publish(right_wheel_vel_msg);
+
+    ROS_INFO("publishing left/right wheel speeds");
+
   }
 
   /**
@@ -169,8 +172,11 @@ PropbotHWInterface::PropbotHWInterface()
     registerInterface(&jnt_state_interface);
     registerInterface(&jnt_vel_interface);
 
+
     // Initialize publishers and subscribers
     left_wheel_vel_pub_ = nh.advertise<std_msgs::Float32>("propbot_velocity_controller/left_wheel_vel", 1);
     right_wheel_vel_pub_ = nh.advertise<std_msgs::Float32>("propbot_velocity_controller/right_wheel_vel", 1);
+
+    ROS_INFO("Initialized propbot hw interface");
 
 }

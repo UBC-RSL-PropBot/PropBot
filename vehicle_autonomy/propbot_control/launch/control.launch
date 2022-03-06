@@ -117,7 +117,7 @@
 
     <!-- Run the propbot_base -->
     <!-- This will create the PropBot hardware interface and instantiate -->
-    <node name="propbot_base" pkg="propbot_base" type="propbot_base" ns="/propbot_base" output="screen"/>
+    <node name="propbot_base" pkg="propbot_control" type="propbot_base" output="screen"/>
       
   <node pkg="interactive_marker_twist_server" type="marker_server" name="twist_marker_server" output="screen"/>
 
