@@ -36,9 +36,9 @@ int main(int argc, char **argv)
 
         // Execution of the actual control loop.
         
-        diffBot.read(time, period);
+        propbotHWInterface.read(time, period);
         cm.update(time, period);
-        diffBot.write(time, period);
+        propbotHWInterface.write(time, period);
         
         // All these steps keep getting repeated with the specified rate.
         rate.sleep();

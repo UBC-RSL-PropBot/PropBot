@@ -48,6 +48,7 @@
 #include <hardware_interface/joint_command_interface.h>
 #include <hardware_interface/joint_state_interface.h>
 #include <hardware_interface/robot_hw.h>
+#include <urdf/model.h>
 // ostringstream
 #include <sstream>
 
@@ -124,10 +125,13 @@ private:
   double vel[NUM_JOINTS];
   double eff[NUM_JOINTS];
 
-  bool running_;
+  // Short name of this class
+  std::string name_;
+
   double _wheel_diameter;
   double _max_speed;
   double _wheel_angle[NUM_JOINTS];
+  urdf::Model *urdf_model_;
 
 
   ros::Publisher left_wheel_vel_pub_;
@@ -136,8 +140,8 @@ private:
 };  // class
 
 PropbotHWInterface::PropbotHWInterface()
-: running_(true)
 {
+    name_ = "PropbotHWInterface";
 
     // load robot model 
     loadURDF(&nh, "robot_description");
