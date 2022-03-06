@@ -143,8 +143,10 @@ PropbotHWInterface::PropbotHWInterface()
 {
     name_ = "PropbotHWInterface";
 
+    std::string urdf_param = "robot_description";
+
     // load robot model 
-    loadURDF(&nh, "robot_description");
+    loadURDF(&nh, urdf_param);
 
     // Intialize raw data
     std::fill_n(pos, NUM_JOINTS, 0.0);
