@@ -7,6 +7,7 @@ roscpp
 diff_drive_controller
 hardware_interface
 roslib
+urdf
 roslaunch)
 
 include_directories(
