@@ -16,10 +16,6 @@ add_executable(${PROJECT_NAME}_node
   src/propbot_base.cpp
 )
 
-target_link_libraries(propbot_hw_interface
-  ${catkin_LIBRARIES}
-)
-
 install(DIRECTORY config launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
