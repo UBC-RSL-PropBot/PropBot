@@ -36,9 +36,9 @@ int main(int argc, char **argv)
 
         // Execution of the actual control loop.
         
-        propbotHWInterface.read(time, period);
+        propbotHWInterface.read(period);
         cm.update(time, period);
-        propbotHWInterface.write(time, period);
+        propbotHWInterface.write();
         
         // All these steps keep getting repeated with the specified rate.
         rate.sleep();
