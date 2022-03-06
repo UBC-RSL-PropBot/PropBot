@@ -18,9 +18,11 @@ catkin_package()
 
 roslaunch_add_file_check(launch)
 
-add_executable(${PROJECT_NAME}_node 
+add_executable(propbot_base 
   src/propbot_base.cpp
 )
+
+target_link_libraries(propbot_base PUBLIC ${catkin_LIBRARIES})
 
 install(DIRECTORY config launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}

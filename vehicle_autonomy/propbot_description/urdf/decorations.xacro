@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<robot name="propbot_decorate" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find propbot_description)/urdf/decorations.urdf.xacro"/>
+  <xacro:propbot_decorate/>
+</robot>
