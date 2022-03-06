@@ -7,6 +7,10 @@ catkin_package()
 
 roslaunch_add_file_check(launch)
 
+add_executable(${PROJECT_NAME}_node 
+  src/propbot_hw_interface.cpp
+)
+
 install(DIRECTORY config launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
