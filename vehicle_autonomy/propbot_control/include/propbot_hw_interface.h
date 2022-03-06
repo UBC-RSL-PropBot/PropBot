@@ -52,7 +52,7 @@
 // ostringstream
 #include <sstream>
 
-const unsigned int NUM_JOINTS = 2;
+const unsigned int NUM_JOINTS = 4;
 
 /// \brief Hardware interface for a robot
 class PropbotHWInterface : public hardware_interface::RobotHW
@@ -161,7 +161,7 @@ PropbotHWInterface::PropbotHWInterface():nh("propbot_velocity_controller")
     std::fill_n(vel, NUM_JOINTS, 0.0);
     std::fill_n(eff, NUM_JOINTS, 0.0);
     std::fill_n(cmd, NUM_JOINTS, 0.0);
-    std::array<std::string, NUM_JOINTS> joint_names = {"front_left_wheel", "front_right_wheel"};
+    std::array<std::string, NUM_JOINTS> joint_names = {"front_left_wheel", "front_right_wheel", "rear_left_wheel", "rear_right_wheel"};
     // connect and register the joint state and velocity interfaces
     for (unsigned int i = 0; i < NUM_JOINTS; ++i)
     {
