@@ -142,9 +142,14 @@ private:
 
 };  // class
 
-PropbotHWInterface::PropbotHWInterface()
+PropbotHWInterface::PropbotHWInterface():nh("propbot_velocity_controller")
 {
-    name_ = "PropbotHWInterface";
+    name_ = "propbot_velocity_controller";
+
+    
+
+    nh.param<double>("wheel_diameter", _wheel_diameter, 0.064);
+    nh.param<double>("max_speed", _max_speed, 1.0);
 
     std::string urdf_param = "robot_description";
 
@@ -156,17 +161,15 @@ PropbotHWInterface::PropbotHWInterface()
     std::fill_n(vel, NUM_JOINTS, 0.0);
     std::fill_n(eff, NUM_JOINTS, 0.0);
     std::fill_n(cmd, NUM_JOINTS, 0.0);
-
+    std::array<std::string, NUM_JOINTS> joint_names = {"front_left_wheel", "front_right_wheel"};
     // connect and register the joint state and velocity interfaces
     for (unsigned int i = 0; i < NUM_JOINTS; ++i)
     {
-        std::ostringstream os;
-        os << "wheel_" << i << "_joint";
 
-        hardware_interface::JointStateHandle state_handle(os.str(), &pos[i], &vel[i], &eff[i]);
+        hardware_interface::JointStateHandle state_handle(joint_names[i], &pos[i], &vel[i], &eff[i]);
         jnt_state_interface.registerHandle(state_handle);
 
-        hardware_interface::JointHandle vel_handle(jnt_state_interface.getHandle(os.str()), &cmd[i]);
+        hardware_interface::JointHandle vel_handle(state_handle, &cmd[i]);
         jnt_vel_interface.registerHandle(vel_handle);
     }
     registerInterface(&jnt_state_interface);
@@ -174,8 +177,8 @@ PropbotHWInterface::PropbotHWInterface()
 
 
     // Initialize publishers and subscribers
-    left_wheel_vel_pub_ = nh.advertise<std_msgs::Float32>("propbot_velocity_controller/left_wheel_vel", 1);
-    right_wheel_vel_pub_ = nh.advertise<std_msgs::Float32>("propbot_velocity_controller/right_wheel_vel", 1);
+    left_wheel_vel_pub_ = nh.advertise<std_msgs::Float32>("front_left_wheel", 1);
+    right_wheel_vel_pub_ = nh.advertise<std_msgs::Float32>("front_right_wheel", 1);
 
     ROS_INFO("Initialized propbot hw interface");
 
