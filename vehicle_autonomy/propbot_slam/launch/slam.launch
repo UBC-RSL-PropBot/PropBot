@@ -5,7 +5,7 @@
    <include file="$(find propbot_slam)/launch/navsat_transform.launch" />
 
     <!--- Launch Cartographer SLAM -->
-  <include file="$(find propbot_slam)/launch/cartographer.launch" />
+  <!-- <include file="$(find propbot_slam)/launch/cartographer.launch" /> -->
 
   <!-- Launch SLAM pose publishers -->
   <include file="$(find propbot_slam)/launch/publish_slam_poses.launch" />
