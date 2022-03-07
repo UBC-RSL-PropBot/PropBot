@@ -4,12 +4,14 @@
   <arg name="robot_namespace" default="/" />
   <arg name="laser_enabled" default="true" />
   <arg name="rgbd_camera_enabled" default="true" />
+  <arg name="use_physical_hw_controller" default="false"/>
 
   <group ns="$(arg robot_namespace)">
     <!--- Launch controller -->
     <include file="$(find propbot_control)/launch/control.launch">
       <arg name="laser_enabled" value="$(arg laser_enabled)"/>
       <arg name="rgbd_camera_enabled" value="$(arg rgbd_camera_enabled)"/>
+      <arg name="use_physical_hw_controller" value="$(arg use_physical_hw_controller"/>
     </include>
 
     <!-- - Launch state estimation -->
