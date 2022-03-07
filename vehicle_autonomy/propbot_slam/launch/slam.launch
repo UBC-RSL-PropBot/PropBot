@@ -10,4 +10,8 @@
   <!-- Launch SLAM pose publishers -->
   <include file="$(find propbot_slam)/launch/publish_slam_poses.launch" />
 
+      <!--- Launch Rtabmap SLAM -->
+  <include file="$(find propbot_slam)/launch/rtabmap.launch" />
+
+
 </launch>
