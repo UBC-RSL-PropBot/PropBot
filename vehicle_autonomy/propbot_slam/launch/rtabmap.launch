@@ -23,6 +23,7 @@
 
           <remap from="odom" to="/odometry/filtered"/>
           <remap from="rgbd_image" to="rgbd_image"/>
+          <remap from="rtabmap/octomap_grid" to ="map"/>
 
           <param name="queue_size" type="int" value="10"/>
 
