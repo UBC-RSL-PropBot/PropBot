@@ -24,7 +24,7 @@
         <remap from="imu" to="imu/data" />
         <remap from="rgbd_image" to="rgbd_image"/>
         <remap from="octomap_grid" to ="/map"/>
-        <remap from="fix" to="/navsat/fix" />
+        <remap from="gps/fix" to="/navsat/fix" />
 
         <param name="queue_size" type="int" value="10"/>
 
