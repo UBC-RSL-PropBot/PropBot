@@ -188,19 +188,19 @@ move_base_msgs::MoveBaseGoal MissionHandler::CreateCurrentGoal() const {
   static bool first = true;
   Waypoint curr_waypoint = current_waypoint();
   // Set x and y of current_goal
-  // current_goal.target_pose.pose.position.x = current_map_waypoint.point.x;
-  // current_goal.target_pose.pose.position.y = current_map_waypoint.point.y;
+  current_goal.target_pose.pose.position.x = current_map_waypoint.point.x;
+  current_goal.target_pose.pose.position.y = current_map_waypoint.point.y;
   
-  //todo change back normal (done like this for test)
-  if (first){
-    current_goal.target_pose.pose.position.x = 5;
-    current_goal.target_pose.pose.position.y = 1;
-    first = false;
+  // //todo change back normal (done like this for test)
+  // if (first){
+  //   current_goal.target_pose.pose.position.x = 5;
+  //   current_goal.target_pose.pose.position.y = 1;
+  //   first = false;
 
-  } else{
-    current_goal.target_pose.pose.position.x = 5;
-    current_goal.target_pose.pose.position.y = -5;
-  }
+  // } else{
+  //   current_goal.target_pose.pose.position.x = 5;
+  //   current_goal.target_pose.pose.position.y = -5;
+  // }
 
     ROS_INFO("goal towards x, y : %f, %f ", current_goal.target_pose.pose.position.x, current_goal.target_pose.pose.position.y);
 
