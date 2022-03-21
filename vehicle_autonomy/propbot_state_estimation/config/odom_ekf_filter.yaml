@@ -4,7 +4,7 @@ base_link_frame: base_link
 world_frame: odom
 
 frequency: 50
-publish_tf: false
+publish_tf: true
 print_diagnostics: true
 sensor_timeout: 0.1
 two_d_mode: true
