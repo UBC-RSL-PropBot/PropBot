@@ -1,5 +1,7 @@
 controller_frequency: 5.0
 recovery_behaviour_enabled: true
+max_planning_retries: 5
+oscillation_timeout: 0.01
 
 GlobalPlanner:
   allow_unknown: true  # Specifies whether or not to allow navfn to create plans that traverse unknown space.
