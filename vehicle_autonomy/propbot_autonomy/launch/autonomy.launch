@@ -29,7 +29,7 @@
 
 
     <!-- launch rosserial -->
-    <include file="$(find propbot_interface)/launch/execute_demo.launch"
+    <include file="$(find propbot_interface)/launch/execute_demo.launch"/>
   </group>
 
 </launch>
