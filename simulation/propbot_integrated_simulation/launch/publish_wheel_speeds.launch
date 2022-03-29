@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+
+<launch>
+
+  <node pkg="propbot_integrated_simulation" type="publish_wheel_speeds" name="publish_wheel_speeds" output="screen" />
+
+</launch>
