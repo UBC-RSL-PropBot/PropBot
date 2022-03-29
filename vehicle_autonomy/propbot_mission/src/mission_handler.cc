@@ -169,8 +169,14 @@ void MissionHandler::SendGoal() {
  *
  */
 move_base_msgs::MoveBaseGoal MissionHandler::CreateCurrentGoal() const {
+    ROS_INFO("creating current goal ");
+
+
+
   // Get current waypoint in map frame
   auto current_map_waypoint = current_waypoint().TransformToFrame("map");
+
+  ROS_INFO("pre transform x, y : %f, %f ", current_map_waypoint.point.x, current_map_waypoint.point.y);
 
   // Declare a move base goal
   move_base_msgs::MoveBaseGoal current_goal;
@@ -179,10 +185,26 @@ move_base_msgs::MoveBaseGoal MissionHandler::CreateCurrentGoal() const {
   current_goal.target_pose.header.frame_id = "map";
   current_goal.target_pose.header.stamp = ros::Time::now();
 
+  static bool first = true;
   Waypoint curr_waypoint = current_waypoint();
   // Set x and y of current_goal
-  current_goal.target_pose.pose.position.x = current_map_waypoint.point.x;
-  current_goal.target_pose.pose.position.y = current_map_waypoint.point.y;
+  // current_goal.target_pose.pose.position.x = current_map_waypoint.point.x;
+  // current_goal.target_pose.pose.position.y = current_map_waypoint.point.y;
+  
+  //todo change back normal (done like this for test)
+  if (first){
+    current_goal.target_pose.pose.position.x = 5;
+    current_goal.target_pose.pose.position.y = 1;
+    first = false;
+
+  } else{
+    current_goal.target_pose.pose.position.x = 5;
+    current_goal.target_pose.pose.position.y = -5;
+  }
+
+    ROS_INFO("goal towards x, y : %f, %f ", current_goal.target_pose.pose.position.x, current_goal.target_pose.pose.position.y);
+
+
 
   if (current_waypoint_number() < mission_.number_waypoints()) {
     // Get next waypoint in map frame

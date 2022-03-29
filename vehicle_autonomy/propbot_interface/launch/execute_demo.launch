@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+
+
+<launch>
+  <node pkg="rosserial_python" type="serial_node.py" name="serial_node">
+    <param name="port" value="/dev/ttyACM0"/>
+    <param name="baud" value="57600"/>
+  </node>
+
+  <!-- demo to showcase a working rosserial, can be used to simulate an autonomy system blackbox connected to a working vehicle interface system-->
+  <!-- <node ns="/propbot_interface" pkg="propbot_interface" type="wheel_speed_publisher.py" name="wheel_speed_publisher" output="screen" /> -->
+
+  
+</launch>
