@@ -9,6 +9,8 @@
 
     <!--- Run rviz -->
     <include file="$(find propbot_rviz)/launch/view_robot.launch" />
+
+    <include file="$(find propbot_integrated_simulation)/launch/publish_wheel_speeds.launch"/>
     
   </group>
 

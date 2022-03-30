@@ -1,6 +1,6 @@
 <launch>
 
-  <!-- <node pkg="mapviz" type="mapviz" name="mapviz"></node> -->
+  <node pkg="mapviz" type="mapviz" name="mapviz"></node>
 
 
   <node pkg="tf" type="static_transform_publisher" name="swri_transform" args="0 0 0 0 0 0 /map /origin 100"  />
@@ -17,7 +17,7 @@
     </rosparam>
   </node>
 
-  <node pkg="rqt_gui" type="rqt_gui" name="rqt_consoles"/>
+  <!-- <node pkg="rqt_gui" type="rqt_gui" name="rqt_consoles"/> -->
 
 
 </launch>
