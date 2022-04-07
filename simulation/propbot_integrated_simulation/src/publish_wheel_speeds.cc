@@ -3,8 +3,8 @@
 #include "gazebo_msgs/GetJointProperties.h"
 #include <ros/package.h>
 #include <ros/ros.h>
-#include <std_msgs/Int32.h>
-#include <std_msgs/UInt32.h>
+//#include <std_msgs/Int32.h>
+#include <std_msgs/UInt8.h>
 
 #include <ros/console.h>
 
@@ -21,11 +21,11 @@ int main(int argc, char** argv) {
 
   // Create publishers
   ros::Publisher left_wheel_pub = 
-      nh.advertise<std_msgs::UInt32>(
+      nh.advertise<std_msgs::UInt8>(
           "left_wheel", 100);
 
   ros::Publisher right_wheel_pub = 
-      nh.advertise<std_msgs::UInt32>(
+      nh.advertise<std_msgs::UInt8>(
           "right_wheel", 100);
 
   ros::Rate loop_rate(50);
@@ -45,8 +45,8 @@ int main(int argc, char** argv) {
         continue;
     }
 
-    std_msgs::UInt32 lw;
-    std_msgs::UInt32 rw;  
+    std_msgs::UInt8 lw;
+    std_msgs::UInt8 rw;  
 
     gazebo_msgs::GetJointProperties msg_lw;
     gazebo_msgs::GetJointProperties msg_rw;
@@ -71,7 +71,7 @@ int main(int argc, char** argv) {
     } else if (std::abs(lwf) > 0.05f) {
       lw.data = 85;
     } else {
-      lw.data = 0;
+      lw.data = 85;
     }
 
     if(std::abs(rwf) > 4.0f){
