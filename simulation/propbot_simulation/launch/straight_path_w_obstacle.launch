@@ -5,10 +5,12 @@
 
   <group ns="$(arg robot_namespace)">
     <!--- Run gazebo -->
-    <include file="$(find propbot_gazebo)/launch/propbot_ubc_student_union.launch" />
+    <include file="$(find propbot_gazebo)/launch/propbot_straight_path_w_obstacle.launch" />
 
     <!--- Run rviz -->
     <include file="$(find propbot_rviz)/launch/view_robot.launch" />
+
+    <include file="$(find propbot_integrated_simulation)/launch/publish_wheel_speeds.launch"/>
     
   </group>
 
