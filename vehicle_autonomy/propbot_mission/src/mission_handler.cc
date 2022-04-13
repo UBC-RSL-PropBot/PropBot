@@ -193,8 +193,8 @@ move_base_msgs::MoveBaseGoal MissionHandler::CreateCurrentGoal() const {
   
   //todo change back normal (done like this for test)
   if (first){
-    current_goal.target_pose.pose.position.x = 0;
-    current_goal.target_pose.pose.position.y = 10;
+    current_goal.target_pose.pose.position.x = 8;
+    current_goal.target_pose.pose.position.y = 0;
     first = false;
 
   }
