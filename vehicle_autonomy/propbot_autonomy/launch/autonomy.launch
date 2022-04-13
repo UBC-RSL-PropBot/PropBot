@@ -28,8 +28,8 @@
     <include file="$(find propbot_mission)/launch/execute_mission.launch" />
 
 
-    <!-- launch rosserial -->
-    <include file="$(find propbot_interface)/launch/execute_demo.launch"/>
+    <!-- launch rosserial demo -->
+    <!-- <include file="$(find propbot_interface)/launch/execute_demo.launch"/> -->
   </group>
 
 </launch>

@@ -193,13 +193,10 @@ move_base_msgs::MoveBaseGoal MissionHandler::CreateCurrentGoal() const {
   
   //todo change back normal (done like this for test)
   if (first){
-    current_goal.target_pose.pose.position.x = 5;
-    current_goal.target_pose.pose.position.y = 1;
+    current_goal.target_pose.pose.position.x = 0;
+    current_goal.target_pose.pose.position.y = 10;
     first = false;
 
-  } else{
-    current_goal.target_pose.pose.position.x = 5;
-    current_goal.target_pose.pose.position.y = -5;
   }
 
     ROS_INFO("goal towards x, y : %f, %f ", current_goal.target_pose.pose.position.x, current_goal.target_pose.pose.position.y);
