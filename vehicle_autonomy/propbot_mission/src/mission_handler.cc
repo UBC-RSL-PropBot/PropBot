@@ -195,7 +195,6 @@ move_base_msgs::MoveBaseGoal MissionHandler::CreateCurrentGoal() const {
   if (first){
     current_goal.target_pose.pose.position.x = 8;
     current_goal.target_pose.pose.position.y = 0;
-    first = false;
 
   }
 
