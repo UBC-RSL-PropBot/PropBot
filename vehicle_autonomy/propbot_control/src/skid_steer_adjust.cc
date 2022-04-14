@@ -82,5 +82,3 @@ int main(int argc, char** argv) {
   ros::shutdown();
   return 0;
 }
-                                                                                                                                                                                                 78,1          Bot
-
