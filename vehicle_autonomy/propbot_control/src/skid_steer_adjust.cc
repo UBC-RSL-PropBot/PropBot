@@ -60,13 +60,20 @@ int main(int argc, char** argv) {
     lw.data = 1;
     rw.data = -1;
 
+    if(std)
     if(std::abs(latest_rcv_cmd.angular.z) > 0.1 ){
         latest_sent_cmd.linear.x = 0.0;
         latest_sent_cmd.angular.z = 3*latest_rcv_cmd.angular.z;
 
     } else{
+      if(std::abs(latest_rcv_cmd.linear.x) > 0.1){
         latest_sent_cmd.linear.x = std::max(3.0, 5 * latest_rcv_cmd.linear.x);
         latest_sent_cmd.angular.z = 0.0;
+      } else{
+        latest_sent_cmd.linear.x = 0.0;
+        latest_sent_cmd.angular.z = 0.0;
+
+      }
 
     }
     // Publish pose
