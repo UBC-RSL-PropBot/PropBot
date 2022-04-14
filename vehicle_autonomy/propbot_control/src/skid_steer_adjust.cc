@@ -62,10 +62,10 @@ int main(int argc, char** argv) {
 
     if(std::abs(latest_rcv_cmd.angular.z) > 0.1 ){
         latest_sent_cmd.linear.x = 0.0;
-        latest_sent_cmd.angular.z = latest_rcv_cmd.angular.z;
+        latest_sent_cmd.angular.z = 3*latest_rcv_cmd.angular.z;
 
     } else{
-        latest_sent_cmd.linear.x = latest_rcv_cmd.linear.x;
+        latest_sent_cmd.linear.x = std::max(3.0, 5 * latest_rcv_cmd.linear.x);
         latest_sent_cmd.angular.z = 0.0;
 
     }
