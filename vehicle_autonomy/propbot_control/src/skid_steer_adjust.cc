@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
   ros::Subscriber sub = nh.subscribe("/move_base/cmd_vel", 10, cmdVelCallback);
 
   ros::Rate loop_rate(10);
-  geometry_msgs::Twist latest_send_cmd;
+  geometry_msgs::Twist latest_sent_cmd;
 
 
   while (nh.ok()) {
@@ -73,7 +73,7 @@ int main(int argc, char** argv) {
     // Publish pose
     left_wheel_pub.publish(lw);
     right_wheel_pub.publish(rw);
-    cmd_vel_pub.publish(latest_rcv_cmd);
+    cmd_vel_pub.publish(latest_sent_cmd);
 
     // Sleep
     ros::spinOnce();
