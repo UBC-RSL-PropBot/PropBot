@@ -16,7 +16,6 @@ void cmdVelCallback(const geometry_msgs::Twist::ConstPtr & msg)
 {
    latest_rcv_cmd.linear.x = msg->linear.x;
    latest_rcv_cmd.angular.z = msg->angular.z;
-   std::cout<<"im here"<<std::endl;
 //   latest_rcv_cmd = msg;
 }
 
