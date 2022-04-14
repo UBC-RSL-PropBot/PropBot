@@ -196,6 +196,10 @@ move_base_msgs::MoveBaseGoal MissionHandler::CreateCurrentGoal() const {
     current_goal.target_pose.pose.position.x = 8;
     current_goal.target_pose.pose.position.y = 0;
 
+  } else{
+    current_goal.target_pose.pose.position.x = 8;
+    current_goal.target_pose.pose.position.y = -2;
+
   }
 
     ROS_INFO("goal towards x, y : %f, %f ", current_goal.target_pose.pose.position.x, current_goal.target_pose.pose.position.y);

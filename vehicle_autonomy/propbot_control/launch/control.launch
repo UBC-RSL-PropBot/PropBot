@@ -132,4 +132,7 @@
   </node>
   -->
 
+ <node pkg="propbot_control" type="skid_steer_adjust" name="skid_steer_adjust" output="screen" />
+
+
 </launch>

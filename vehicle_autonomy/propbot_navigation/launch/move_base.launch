@@ -103,6 +103,8 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCL
     
     <!-- global costmap with laser -->
     <rosparam file="$(find propbot_navigation)/config/costmap_global_slam.yaml" command="load" ns="global_costmap" unless="$(arg static_map)"/>
+    <remap from="cmd_vel" to="move_base/cmd_vel"/>
+
 
   </node>
 
