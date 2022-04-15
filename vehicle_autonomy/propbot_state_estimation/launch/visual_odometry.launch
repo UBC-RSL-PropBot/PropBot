@@ -8,6 +8,9 @@
       <remap from="rgb/image" to="color/image_raw" />
       <remap from="depth/image" to="depth/image_rect_raw" />
       <remap from="rgb/camera_info" to="color/camera_info" />
+      <param name="publish_null_when_lost" value="false"/>
+      <param name="Odom/ResetCountdown" value="1"/>
+
     </node>
   </group>
 
