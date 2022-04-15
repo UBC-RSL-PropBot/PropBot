@@ -2,7 +2,7 @@
 
 <launch>
   <arg name="node_name" default="gps" />
-  <arg name="param_file_name" doc="name of param file, e.g. rover" default="c94_m8p_base" />
+  <arg name="param_file_name" doc="name of param file, e.g. rover" default="c94_m8p_rover" />
   <arg name="output" default="screen" />
   <arg name="respawn" default="true" />
   <arg name="respawn_delay" default="30" />

@@ -1,0 +1,11 @@
+<launch>
+
+  <include file="$(find realsense2_camera)/launch/empty_world.launch">
+  <arg name="world_name" value="$(find propbot_gazebo)/worlds/clearpath_playpen.world"/>
+  <arg name="depth_width"         default="640"/>
+  <arg name="depth_height"        default="480"/>
+  <arg name="color_width"         default="640"/>
+  <arg name="color_height"        default="480"/>
+  </include>
+
+</launch>
