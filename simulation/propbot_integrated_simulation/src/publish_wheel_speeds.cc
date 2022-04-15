@@ -4,7 +4,7 @@
 #include <ros/package.h>
 #include <ros/ros.h>
 //#include <std_msgs/Int32.h>
-#include <std_msgs/UInt8.h>
+#include <std_msgs/Float32.h>
 
 #include <ros/console.h>
 
@@ -21,11 +21,11 @@ int main(int argc, char** argv) {
 
   // Create publishers
   ros::Publisher left_wheel_pub = 
-      nh.advertise<std_msgs::UInt8>(
+      nh.advertise<std_msgs::Float32>(
           "left_wheel", 100);
 
   ros::Publisher right_wheel_pub = 
-      nh.advertise<std_msgs::UInt8>(
+      nh.advertise<std_msgs::Float32>(
           "right_wheel", 100);
 
   ros::Rate loop_rate(50);
@@ -45,8 +45,8 @@ int main(int argc, char** argv) {
         continue;
     }
 
-    std_msgs::UInt8 lw;
-    std_msgs::UInt8 rw;  
+    std_msgs::Float32 lw;
+    std_msgs::Float32 rw;  
 
     gazebo_msgs::GetJointProperties msg_lw;
     gazebo_msgs::GetJointProperties msg_rw;
@@ -63,27 +63,31 @@ int main(int argc, char** argv) {
     float rwf = msg_lw.response.rate[0];
 
 
-    if(std::abs(lwf) > 4.0f){
-      lw.data = 105;
+    // if(std::abs(lwf) > 4.0f){
+    //   lw.data = 105;
   
-    } else if (std::abs(lwf) > 1.0f) {
-      lw.data = 95;
-    } else if (std::abs(lwf) > 0.05f) {
-      lw.data = 85;
-    } else {
-      lw.data = 85;
-    }
+    // } else if (std::abs(lwf) > 1.0f) {
+    //   lw.data = 95;
+    // } else if (std::abs(lwf) > 0.05f) {
+    //   lw.data = 85;
+    // } else {
+    //   lw.data = 85;
+    // }
 
-    if(std::abs(rwf) > 4.0f){
-      rw.data = 105;
+    // if(std::abs(rwf) > 4.0f){
+    //   rw.data = 105;
   
-    } else if (std::abs(rwf) > 1.0f) {
-      rw.data = 95;
-    } else if (std::abs(rwf) > 0.01f) {
-      rw.data = 85;
-    } else {
-      rw.data = 0;
-    }
+    // } else if (std::abs(rwf) > 1.0f) {
+    //   rw.data = 95;
+    // } else if (std::abs(rwf) > 0.01f) {
+    //   rw.data = 85;
+    // } else {
+    //   rw.data = 0;
+    // }
+
+    lw.data = lwf;
+    rw.data = rwf;
+
 
     // if (rwf < 0){
     //   rw.data *= -1;
