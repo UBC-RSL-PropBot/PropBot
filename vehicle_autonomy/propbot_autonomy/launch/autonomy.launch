@@ -2,8 +2,11 @@
 <launch>
 
   <arg name="robot_namespace" default="/" />
-  <arg name="laser_enabled" default="true" />
-  <arg name="rgbd_camera_enabled" default="true" />
+  <arg name="laser_enabled" default="false" />
+  <arg name="rgbd_camera_enabled" default="false" />
+  <arg name="gps_enabled" default="false" />
+  <arg name="imu_enabled" default="false" />
+
 
   <group ns="$(arg robot_namespace)">
     <!--- Launch controller -->
@@ -27,9 +30,6 @@
     <!--- Launch Mission Execution -->
     <include file="$(find propbot_mission)/launch/execute_mission.launch" />
 
-
-    <!-- launch rosserial demo -->
-    <!-- <include file="$(find propbot_interface)/launch/execute_demo.launch"/> -->
   </group>
 
 </launch>
