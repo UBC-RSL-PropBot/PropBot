@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
 
   ros::Subscriber sub = nh.subscribe("/move_base/cmd_vel", 10, cmdVelCallback);
 
-  ros::Rate loop_rate(10);
+  ros::Rate loop_rate(5);
   geometry_msgs::Twist latest_sent_cmd;
   int num_consec_opposite = 0;
   int state = 0; //0 stop, 1 forward, 2 turning
@@ -60,13 +60,16 @@ int main(int argc, char** argv) {
     rw.data = -1;
 
     if(std::abs(latest_rcv_cmd.angular.z) > 0.15){
+      ROS_INFO("INSPECTING FORWARD CONDITION");
         if (state != 1){
           num_consec_opposite++;
+          ROS_INFO("INCREMENTING FOR FORWARD COND");
         }
         
         if(num_consec_opposite > 5){
           state = 1;
           num_consec_opposite = 0;
+          ROS_INFO("SETTING STATE TO 1");
         }
 
     } else if(std::abs(latest_rcv_cmd.linear.x) > 0.1 && num_consec_opposite > 5){
@@ -80,12 +83,10 @@ int main(int argc, char** argv) {
           num_consec_opposite = 0;
         }
         
-        state = 2;
-
     } else{
         num_consec_opposite = 0;
         state = 0;
-      }
+    }
 
 
     if(state == 0){
