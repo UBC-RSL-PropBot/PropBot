@@ -59,7 +59,7 @@ int main(int argc, char** argv) {
     lw.data = 1;
     rw.data = -1;
 
-    if(std::abs(latest_rcv_cmd.angular.z) > 0.15){
+    if(std::abs(latest_rcv_cmd.angular.z) > 0.10){
         
         if (state != 2){
           num_consec_opposite++;
