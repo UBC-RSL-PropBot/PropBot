@@ -59,19 +59,7 @@ int main(int argc, char** argv) {
     lw.data = 1;
     rw.data = -1;
 
-    if(std::abs(latest_rcv_cmd.linear.x) > 0.1){
-        if (state != 1){
-          num_consec_opposite++;
-          ROS_INFO("INCREMENTING FOR FORWARD COND");
-        }
-        
-        if(num_consec_opposite > 5){
-          state = 1;
-          num_consec_opposite = 0;
-          ROS_INFO("SETTING STATE TO 1");
-        }
-
-    } else if(std::abs(latest_rcv_cmd.angular.z) > 0.15){
+    if(std::abs(latest_rcv_cmd.angular.z) > 0.15){
         
         if (state != 2){
           num_consec_opposite++;
@@ -80,8 +68,21 @@ int main(int argc, char** argv) {
         if(num_consec_opposite > 5){
           state = 2;
           num_consec_opposite = 0;
+          ROS_INFO("SETTING STATE TO ROTATION");
+        }
+
+    }else if(std::abs(latest_rcv_cmd.linear.x) > 0.1){
+        if (state != 1){
+          num_consec_opposite++;
+          ROS_INFO("INCREMENTING FOR FORWARD COND");
         }
         
+        if(num_consec_opposite > 5){
+          state = 1;
+          num_consec_opposite = 0;
+          ROS_INFO("SETTING STATE TO FORWARD");
+        }
+
     } else{
         num_consec_opposite = 0;
         state = 0;
