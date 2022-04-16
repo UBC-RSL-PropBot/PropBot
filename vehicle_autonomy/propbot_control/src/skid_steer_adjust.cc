@@ -93,12 +93,14 @@ int main(int argc, char** argv) {
         latest_sent_cmd.angular.z = 0.0;
 
     } else if (state == 1) {
+        latest_sent_cmd.linear.x = latest_rcv_cmd.linear.x;
+        latest_sent_cmd.angular.z = 0.0;
+
+    }else if (state = 2){
+
         latest_sent_cmd.linear.x = 0.0;
         latest_sent_cmd.angular.z = latest_rcv_cmd.angular.z;
 
-    }else if (state = 2){
-        latest_sent_cmd.linear.x = latest_rcv_cmd.linear.x;
-        latest_sent_cmd.angular.z = 0.0;
 
     }
 
