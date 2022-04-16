@@ -46,7 +46,8 @@ int main(int argc, char** argv) {
 
   ros::Rate loop_rate(10);
   geometry_msgs::Twist latest_sent_cmd;
-
+  int num_consec_opposite = 0;
+  int state = 0; //0 stop, 1 forward, 2 turning
 
   while (nh.ok()) {
 
@@ -58,21 +59,49 @@ int main(int argc, char** argv) {
     lw.data = 1;
     rw.data = -1;
 
-    if(std::abs(latest_rcv_cmd.angular.z) > 0.22 ){
+    if(std::abs(latest_rcv_cmd.angular.z) > 0.15){
+        if (state != 1){
+          num_consec_opposite++;
+        }
+        
+        if(num_consec_opposite > 5){
+          state = 1;
+          num_consec_opposite = 0;
+        }
+
+    } else if(std::abs(latest_rcv_cmd.linear.x) > 0.1 && num_consec_opposite > 5){
+        
+        if (state != 2){
+          num_consec_opposite++;
+        }
+        
+        if(num_consec_opposite > 5){
+          state = 2;
+          num_consec_opposite = 0;
+        }
+        
+        state = 2;
+
+    } else{
+        num_consec_opposite = 0;
+        state = 0;
+      }
+
+
+    if(state == 0){
+        latest_sent_cmd.linear.x = 0.0;
+        latest_sent_cmd.angular.z = 0.0;
+
+    } else if (state == 1) {
         latest_sent_cmd.linear.x = 0.0;
         latest_sent_cmd.angular.z = latest_rcv_cmd.angular.z;
 
-    } else{
-      if(std::abs(latest_rcv_cmd.linear.x) > 0.1){
+    }else if (state = 2){
         latest_sent_cmd.linear.x = latest_rcv_cmd.linear.x;
         latest_sent_cmd.angular.z = 0.0;
-      } else{
-        latest_sent_cmd.linear.x = 0.0;
-        latest_sent_cmd.angular.z = 0.0;
-
-      }
 
     }
+
     // Publish pose
     left_wheel_pub.publish(lw);
     right_wheel_pub.publish(rw);
