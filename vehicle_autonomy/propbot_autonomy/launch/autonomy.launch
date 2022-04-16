@@ -2,7 +2,7 @@
 <launch>
 
   <arg name="robot_namespace" default="/" />
-  <arg name="laser_enabled" default="false" />
+  <arg name="laser_enabled" default="true" />
   <arg name="rgbd_camera_enabled" default="true" />
   <arg name="gps_enabled" default="false" />
   <arg name="imu_enabled" default="false" />

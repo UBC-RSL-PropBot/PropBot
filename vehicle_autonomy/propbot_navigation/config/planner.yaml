@@ -36,6 +36,7 @@ TebLocalPlannerROS:
   acc_lim_x: 1.0
   acc_lim_theta: 1.0
   min_turning_radius: 0.0
+  max_turning_radius: 0.0
   footprint_model: # types: "point", "circular", "two_circles", "line", "polygon"
     type: "point"  # Uses the least computational power
 
