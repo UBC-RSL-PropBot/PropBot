@@ -53,8 +53,6 @@ int main(int argc, char** argv) {
    //latest_rcv_cmd.linear.x = -0.2;
    //latest_rcv_cmd.angular.z = -0.1;
    
-   cmd_vel_pub.publish(latest_rcv_cmd);
-
     std_msgs::Float32 lw;
     std_msgs::Float32 rw;
     lw.data = 1;
