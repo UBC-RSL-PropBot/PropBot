@@ -98,18 +98,17 @@ int main(int argc, char** argv) {
           twists.clear();
         }
         state = 2;
-      } else if(runningCount[1] > 10){
-        if(state != 1){
-          ROS_INFO("SETTING STATE TO FORWARD");
-          twists.erase(twists.begin(), twists.begin() + 5);
-        }
-        state = 1;
-      } else{
+      } else if(runningCount[0] > 15){
         if(state != 0){
           ROS_INFO("SETTING STATE TO STOP");
           twists.clear();
         }
         state = 0;
+      } else{
+        if(state != 1){
+          ROS_INFO("SETTING STATE TO FORWARD");
+        }
+        state = 1;
       }
     }
 
