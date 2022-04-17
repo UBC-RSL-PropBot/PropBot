@@ -90,6 +90,9 @@ int main(int argc, char** argv) {
 
     std::vector<int> runningCount = countNumStates();
 
+    ROS_INFO("twists size is %d", twists.size());
+
+    
     if(twists.size() >= 10 ){
       if(runningCount[2] > 7){
         if(state != 2){
@@ -154,8 +157,6 @@ int main(int argc, char** argv) {
 
         latest_sent_cmd.linear.x = 0.0;
         latest_sent_cmd.angular.z = latest_rcv_cmd.angular.z;
-
-
     }
 
     // Publish pose
