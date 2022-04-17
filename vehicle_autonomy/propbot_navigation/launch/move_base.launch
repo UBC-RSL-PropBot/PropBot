@@ -85,8 +85,6 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCL
     </node>
   </group>
 
-  <rosparam command="load" file="$(find propbot_navigation)/config/sbpl_global.yaml"/>
-
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
 
     <param name="base_global_planner" value="global_planner/GlobalPlanner"/>

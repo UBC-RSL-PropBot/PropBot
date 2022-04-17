@@ -93,16 +93,19 @@ int main(int argc, char** argv) {
     if(runningCount[2] > 7){
       if(state != 2){
         ROS_INFO("SETTING STATE TO ROTATION");
+        twists.clear();
       }
       state = 2;
     } else if(runningCount[1] > 7){
       if(state != 1){
         ROS_INFO("SETTING STATE TO FORWARD");
+        twists.clear();
       }
       state = 1;
     } else{
       if(state != 0){
         ROS_INFO("SETTING STATE TO STOP");
+        twists.clear();
       }
       state = 0;
     }
