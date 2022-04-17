@@ -90,24 +90,26 @@ int main(int argc, char** argv) {
 
     std::vector<int> runningCount = countNumStates();
 
-    if(runningCount[2] > 7){
-      if(state != 2){
-        ROS_INFO("SETTING STATE TO ROTATION");
-        twists.clear();
+    if(twists.size() >= 10 ){
+      if(runningCount[2] > 7){
+        if(state != 2){
+          ROS_INFO("SETTING STATE TO ROTATION");
+          twists.clear();
+        }
+        state = 2;
+      } else if(runningCount[1] > 7){
+        if(state != 1){
+          ROS_INFO("SETTING STATE TO FORWARD");
+          twists.clear();
+        }
+        state = 1;
+      } else{
+        if(state != 0){
+          ROS_INFO("SETTING STATE TO STOP");
+          twists.clear();
+        }
+        state = 0;
       }
-      state = 2;
-    } else if(runningCount[1] > 7){
-      if(state != 1){
-        ROS_INFO("SETTING STATE TO FORWARD");
-        twists.clear();
-      }
-      state = 1;
-    } else{
-      if(state != 0){
-        ROS_INFO("SETTING STATE TO STOP");
-        twists.clear();
-      }
-      state = 0;
     }
 
     // if(std::abs(latest_rcv_cmd.angular.z) > 0.15){
