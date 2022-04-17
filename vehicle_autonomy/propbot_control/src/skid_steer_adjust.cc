@@ -11,13 +11,42 @@
 
 
 geometry_msgs::Twist latest_rcv_cmd;
+std::vector<geometry_msgs::Twist> twists;
+
+int getActionState(geometry_msgs::Twist twist){
+    if(std::abs(latest_rcv_cmd.angular.z) > 0.15){
+        
+        return 2;
+
+    }else if(std::abs(latest_rcv_cmd.linear.x) > 0.1){
+        return 1;
+
+    } else{
+        return 0;
+    }
+}
 
 void cmdVelCallback(const geometry_msgs::Twist::ConstPtr & msg)
 {
    latest_rcv_cmd.linear.x = msg->linear.x;
    latest_rcv_cmd.angular.z = msg->angular.z;
-//   latest_rcv_cmd = msg;
+   twists.push_back(msg);
+
+   if(twists.size >= 10) {
+     twists.erase(twists.begin());
+   }
 }
+
+std::vector<int> countNumStates(){
+  std::vector<int> results(3,0);
+  for(int i = 0; i < twists.size; i++){
+    results[getActionState(twists[i])]++;
+  }
+
+  return results;
+}
+
+
 
 /* Publish wheel speed from gazebo
  *
@@ -59,34 +88,53 @@ int main(int argc, char** argv) {
     lw.data = 1;
     rw.data = -1;
 
-    if(std::abs(latest_rcv_cmd.angular.z) > 0.15){
-        
-        if (state != 2){
-          num_consec_opposite++;
-        }
-        
-        if(num_consec_opposite > 5){
-          state = 2;
-          num_consec_opposite = 0;
-          ROS_INFO("SETTING STATE TO ROTATION");
-        }
+    std::vector<int> runningCount = countNumStates();
 
-    }else if(std::abs(latest_rcv_cmd.linear.x) > 0.1){
-        if (state != 1){
-          num_consec_opposite++;
-          ROS_INFO("INCREMENTING FOR FORWARD COND");
-        }
-        
-        if(num_consec_opposite > 5){
-          state = 1;
-          num_consec_opposite = 0;
-          ROS_INFO("SETTING STATE TO FORWARD");
-        }
-
+    if(runningCount[2] > 7){
+      if(state != 2){
+        ROS_INFO("SETTING STATE TO ROTATION");
+      }
+      state = 2;
+    } else if(runningCount[1] > 7){
+      if(state != 1){
+        ROS_INFO("SETTING STATE TO FORWARD");
+      }
+      state = 1;
     } else{
-        num_consec_opposite = 0;
-        state = 0;
+      if(state != 0){
+        ROS_INFO("SETTING STATE TO STOP");
+      }
+      state = 0;
     }
+
+    // if(std::abs(latest_rcv_cmd.angular.z) > 0.15){
+        
+    //     if (state != 2){
+    //       num_consec_opposite++;
+    //     }
+        
+    //     if(num_consec_opposite > 3){
+    //       state = 2;
+    //       num_consec_opposite = 0;
+    //       ROS_INFO("SETTING STATE TO ROTATION");
+    //     }
+
+    // }else if(std::abs(latest_rcv_cmd.linear.x) > 0.1){
+    //     if (state != 1){
+    //       num_consec_opposite++;
+    //       ROS_INFO("INCREMENTING FOR FORWARD COND");
+    //     }
+        
+    //     if(num_consec_opposite > 3){
+    //       state = 1;
+    //       num_consec_opposite = 0;
+    //       ROS_INFO("SETTING STATE TO FORWARD");
+    //     }
+
+    // } else{
+    //     num_consec_opposite = 0;
+    //     state = 0;
+    // }
 
 
     if(state == 0){
