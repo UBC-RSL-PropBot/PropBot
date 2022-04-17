@@ -11,9 +11,9 @@
 
 
 geometry_msgs::Twist latest_rcv_cmd;
-std::vector<geometry_msgs::Twist> twists;
+std::vector<geometry_msgs::Twist::ConstPtr> twists;
 
-int getActionState(geometry_msgs::Twist twist){
+int getActionState(geometry_msgs::Twist::ConstPtr twist){
     if(std::abs(latest_rcv_cmd.angular.z) > 0.15){
         
         return 2;
@@ -32,15 +32,15 @@ void cmdVelCallback(const geometry_msgs::Twist::ConstPtr & msg)
    latest_rcv_cmd.angular.z = msg->angular.z;
    twists.push_back(msg);
 
-   if(twists.size >= 10) {
+   if(twists.size() >= 10) {
      twists.erase(twists.begin());
    }
 }
 
 std::vector<int> countNumStates(){
   std::vector<int> results(3,0);
-  for(int i = 0; i < twists.size; i++){
-    results[getActionState(twists[i])]++;
+  for(int i = 0; i < twists.size(); i++){
+    results[getActionState(twists[i])] = results[getActionState(twists[i])] + 1;
   }
 
   return results;
