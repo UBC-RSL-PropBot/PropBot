@@ -14,7 +14,7 @@ geometry_msgs::Twist latest_rcv_cmd;
 std::vector<geometry_msgs::Twist::ConstPtr> twists;
 
 int getActionState(geometry_msgs::Twist::ConstPtr twist){
-    if(std::abs(latest_rcv_cmd.angular.z) > 0.15){
+    if(std::abs(latest_rcv_cmd.angular.z) > 0.250){
         
         return 2;
 
@@ -32,7 +32,7 @@ void cmdVelCallback(const geometry_msgs::Twist::ConstPtr & msg)
    latest_rcv_cmd.angular.z = msg->angular.z;
    twists.push_back(msg);
 
-   if(twists.size() >= 10) {
+   if(twists.size() > 20) {
      twists.erase(twists.begin());
    }
 }
@@ -92,15 +92,15 @@ int main(int argc, char** argv) {
 
     ROS_INFO("twists size is %d", twists.size());
 
-    
-    if(twists.size() >= 10 ){
-      if(runningCount[2] > 7){
+
+    if(twists.size() >= 15 ){
+      if(runningCount[2] > 15){
         if(state != 2){
           ROS_INFO("SETTING STATE TO ROTATION");
           twists.clear();
         }
         state = 2;
-      } else if(runningCount[1] > 7){
+      } else if(runningCount[1] > 15){
         if(state != 1){
           ROS_INFO("SETTING STATE TO FORWARD");
           twists.clear();
