@@ -87,12 +87,13 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCL
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
 
-    <param name="base_global_planner" value="global_planner/GlobalPlanner"/>
+    <param name="base_global_planner" value="global_planner/SBPLLatticePlanner"/>
     <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/>
+    <param name="SBPLLatticePlanner/primitive_filename" value="$(find propbot_navigation)/config/genmprim_unicycle.m"/>
     <rosparam file="$(find propbot_navigation)/config/planner.yaml" command="load"/>
 
     <!-- observation sources located in costmap_common.yaml -->
-    <rosparam file="$(find propbot_navigation)/config/costmap_common.yaml" command="load" ns="global_costmap" />
+    <!-- <rosparam file="$(find propbot_navigation)/config/costmap_common.yaml" command="load" ns="global_costmap" /> -->
     <rosparam file="$(find propbot_navigation)/config/costmap_common.yaml" command="load" ns="local_costmap" />
 
     <!-- local costmap, needs size -->
