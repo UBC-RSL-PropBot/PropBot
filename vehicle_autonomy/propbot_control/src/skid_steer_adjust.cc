@@ -90,8 +90,6 @@ int main(int argc, char** argv) {
 
     std::vector<int> runningCount = countNumStates();
 
-    ROS_INFO("twists size is %d", twists.size());
-
 
     if(twists.size() >= 15 ){
       if(runningCount[2] > 15){
@@ -100,10 +98,10 @@ int main(int argc, char** argv) {
           twists.clear();
         }
         state = 2;
-      } else if(runningCount[1] > 15){
+      } else if(runningCount[1] > 10){
         if(state != 1){
           ROS_INFO("SETTING STATE TO FORWARD");
-          twists.clear();
+          twists.erase(twists.begin(), twists.begin() + 5);
         }
         state = 1;
       } else{
