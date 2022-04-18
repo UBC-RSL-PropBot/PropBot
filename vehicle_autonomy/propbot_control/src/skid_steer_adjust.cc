@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
       nh.advertise<std_msgs::Float32>(
           "left_wheel", 100);
 
-  ros::Subscriber sub = nh.subscribe("/move_base/cmd_vel", 10, cmdVelCallback);
+  ros::Subscriber sub = nh.subscribe("/cmd_vel", 10, cmdVelCallback);
 
   ros::Rate loop_rate(5);
   geometry_msgs::Twist latest_sent_cmd;
