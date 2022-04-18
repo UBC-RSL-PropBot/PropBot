@@ -12,13 +12,14 @@
 
 geometry_msgs::Twist latest_rcv_cmd;
 std::vector<geometry_msgs::Twist::ConstPtr> twists;
+float angle = 0.2;
 
 int getActionState(geometry_msgs::Twist::ConstPtr twist){
-    if(std::abs(latest_rcv_cmd.angular.z) > 0.250){
+    if(std::abs(latest_rcv_cmd.angular.z) > angle){
         
         return 2;
 
-    }else if(std::abs(latest_rcv_cmd.linear.x) > 0.1){
+    }else if(std::abs(latest_rcv_cmd.linear.x) > 0.08){
         return 1;
 
     } else{
@@ -77,6 +78,7 @@ int main(int argc, char** argv) {
   geometry_msgs::Twist latest_sent_cmd;
   int num_consec_opposite = 0;
   int state = 0; //0 stop, 1 forward, 2 turning
+  bool first = true;
 
   while (nh.ok()) {
 
@@ -96,19 +98,24 @@ int main(int argc, char** argv) {
         if(state != 2){
           ROS_INFO("SETTING STATE TO ROTATION");
           twists.clear();
+	  angle = 0.1;
         }
+	first = false;
         state = 2;
-      } else if(runningCount[0] > 15){
-        if(state != 0){
-          ROS_INFO("SETTING STATE TO STOP");
-          twists.clear();
-        }
-        state = 0;
-      } else{
+      } else if(runningCount[1] > 10){
         if(state != 1){
           ROS_INFO("SETTING STATE TO FORWARD");
+          twists.clear();
         }
+	angle = 0.2;
         state = 1;
+      } else{
+        if(state != 0){
+          ROS_INFO("SETTING STATE TO STOP");
+          twists.erase(twists.begin(), twists.begin() + 5);
+        }
+	angle = (first) ? 0.15 : 0.20;
+        state = 0;
       }
     }
 
@@ -145,15 +152,27 @@ int main(int argc, char** argv) {
     if(state == 0){
         latest_sent_cmd.linear.x = 0.0;
         latest_sent_cmd.angular.z = 0.0;
+        lw.data = 0;
+	rw.data = 0;
 
     } else if (state == 1) {
         latest_sent_cmd.linear.x = latest_rcv_cmd.linear.x;
         latest_sent_cmd.angular.z = 0.0;
+	
+	lw.data = 85;
+	rw.data = 85;
 
     }else if (state = 2){
 
         latest_sent_cmd.linear.x = 0.0;
         latest_sent_cmd.angular.z = latest_rcv_cmd.angular.z;
+	if(latest_rcv_cmd.angular.z > 0){
+            rw.data = -105;
+	    lw.data = 105;
+	}else{
+            rw.data = 105;
+	    lw.data = -105;
+	}
     }
 
     // Publish pose
